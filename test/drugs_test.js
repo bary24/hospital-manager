@@ -27,6 +27,9 @@ const response=await request(app).post("/drugs").send({
   
 });
 
+// The id added in put and delete requests should conform to a document's id 
+// inside the corresponding collection
+
 it("Testing drugs put request",async()=>{
     const response=await request(app).put("/drugs/62cf49312b48ca756cbcb937").send({
         tradeName:"Lustral"

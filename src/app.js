@@ -7,9 +7,9 @@ const app = express();
 
 app.use(express.json());
 app.use(morgan("combined"));
-app.use("/doctors",doctorsRouter);
-app.use("/drugs",drugsRouter);
-app.use("/patients",patientsRouter)
+app.use("/doctors",doctorsRouter);  //doctors endpoint//
+app.use("/drugs",drugsRouter);      //drugs endpoint//
+app.use("/patients",patientsRouter); //patients endpoint//
 
 
 

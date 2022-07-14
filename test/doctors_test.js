@@ -28,8 +28,11 @@ const response=await request(app).post("/doctors").send({
   
 });
 
+//The id added in put and delete requests should conform to a document's id 
+//inside the corresponding collection
+
 it("Testing doctors put request",async()=>{
-    const response=await request(app).put("/doctors/62cf25dfc62043a40c705572").send({
+    const response=await request(app).put("/doctors/62cf25dfc62043a40c705572").send({  
         name:"Joseph Ken"
     });
     console.log(response);

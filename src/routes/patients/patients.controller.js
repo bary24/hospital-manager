@@ -1,5 +1,5 @@
 const Patients=require("../../models/patients")
-
+//Get request handler//
 async function getAllPatients(req,res){
     const patients=await Patients.find({});
     try{
@@ -14,6 +14,8 @@ async function getAllPatients(req,res){
     
     }
     }
+
+    //Put request handler//
     async function editPatient(req,res){
         try{
             const updateData=req.body;
@@ -26,6 +28,9 @@ async function getAllPatients(req,res){
         }
     }
     
+//Post request handler//
+
+
     async function addPatient(req,res){
         try{
             if(req.body){
@@ -45,17 +50,20 @@ async function getAllPatients(req,res){
         }
     
     }
-    
+    //Delete request handler//
+//finding patient by Id from the patients collection and deletes it//
+
     async function deletePatient(req,res){
         try{
     const result=await Patients.findByIdAndDelete(req.params.id,{lean:true});
-    if(result.age){
+    if(result.age){            //the request returns the updated document ,this checks 
+                               //if the document is returned before sending a success response
         res.status(200).json("Document deleted successfully");
 
     }
     
         }catch{
-           res.status(404).json("No document was found matching the entered id")
+           res.status(404).json("No document was found matching the entered id");  // returns not found if there is no document matching the entered Id//
     
         }
     }

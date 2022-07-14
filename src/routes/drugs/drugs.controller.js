@@ -1,4 +1,6 @@
 const Drugs=require("../../models/drugs");
+
+//Get request handler//
 async function getAllDrugs(req,res){
 const drugs=await Drugs.find({});
 try{
@@ -13,9 +15,12 @@ try{
 
 }
 }
+
+ //Put request handler//
+
 async function editDrug(req,res){
     try{
-        const updateData=req.body;
+       const updateData=req.body;
        const result= await Drugs.findByIdAndUpdate ((req.params.id),updateData,{lean:true});
        if(result.tradeName){
         res.status(200).json("Document updated successfully")
@@ -23,11 +28,10 @@ async function editDrug(req,res){
         
         }catch{
             res.status(404).json("Document not found");
-            
-           
-    }
+             }
 }
 
+//Post request handler//
 async function addDrug(req,res){
     try{
         if(req.body){
@@ -35,7 +39,6 @@ async function addDrug(req,res){
             const drug= await Drugs.create(drugInfo);
             await drug.save();
             res.status(201).json("Document added sucessfully");
-        
         }
        
 
@@ -46,7 +49,7 @@ async function addDrug(req,res){
     }
 
 }
-
+//Delete request handler//
 async function deleteDrug(req,res){
     try{
 const result=await Drugs.findByIdAndDelete(req.params.id,{lean:true});

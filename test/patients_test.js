@@ -27,6 +27,9 @@ const response=await request(app).post("/patients").send({
   
 });
 
+// The id added in put and delete requests should conform to a document's id 
+// inside the corresponding collection
+
 it("Testing doctors put request",async()=>{
     const response=await request(app).put("/patients/62d0118230604b741f8b56cd").send({
         patientName:"Joseph Ken"
