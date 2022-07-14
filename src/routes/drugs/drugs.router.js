@@ -1,5 +1,6 @@
 const express=require('express');
 const drugsRouter=express.Router();
+const {getAllDrugs,addDrug,editDrug,deleteDrug}=require("./drugs.controller");
 
 
 

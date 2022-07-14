@@ -16,12 +16,15 @@ try{
 async function editDrug(req,res){
     try{
         const updateData=req.body;
-        const result=await Drugs.updateOne({id:req.params.id},updateData);
-        if (result.acknowledged){
-            res.status(201).json("Document updated successfully")
-        }
-    }catch(err){
-       console.log(err);
+       const result= await Drugs.findByIdAndUpdate ((req.params.id),updateData,{lean:true});
+       if(result.tradeName){
+        res.status(200).json("Document updated successfully")
+       }
+        
+        }catch{
+            res.status(404).json("Document not found");
+            
+           
     }
 }
 
@@ -46,14 +49,13 @@ async function addDrug(req,res){
 
 async function deleteDrug(req,res){
     try{
-        console.log(req.params.id);
-const result=await Drugs.findByIdAndDelete(req.params.id);
-if(typeof result!=="undefined"){
+const result=await Drugs.findByIdAndDelete(req.params.id,{lean:true});
+if(result.tradeName){
     res.status(200).json("Document deleted successfully")
 }
 
-    }catch(err){
-        console.log(err);
+    }catch{
+       res.status(404).json("No document found matching the entered id")
 
     }
 }

@@ -12,12 +12,12 @@ res.status(200).json(doctors);
 async function editDoctor(req,res){
     try{
         const updateData=req.body;
-        const result=await Doctors.updateOne({id:req.params.id},updateData);
-        if (result.acknowledged){
-            res.status(201).json("Document updated successfully")
+        const result=await Doctors.findByIdAndUpdate(req.params.id,updateData,{lean:true});
+        if (result.email){
+            res.status(200).json("Document updated successfully")
         }
-    }catch(err){
-       console.log(err);
+    }catch{
+       res.status(404).json("No document found matching the entered id")
     }
 
 }
@@ -25,14 +25,13 @@ async function editDoctor(req,res){
 
 async function deleteDoctor(req,res){
     try{
-        console.log(req.params.id);
-const result=await Doctors.findByIdAndDelete(req.params.id);
-if(typeof result!=="undefined"){
+const result=await Doctors.findByIdAndDelete(req.params.id,{lean:true});
+if(result.email){
     res.status(200).json("Document deleted successfully")
 }
 
-    }catch(err){
-        console.log(err);
+    }catch{
+        res.status(404).json("No document found matching the entered id")
 
     }
 }

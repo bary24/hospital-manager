@@ -1,5 +1,5 @@
-// const {faker}=require("@faker-js/faker");
-const Drugs=require("./drugs");
+const {faker}=require("@faker-js/faker");
+const Patients=require("./patients");
 const connectMongo=require("../services/mongo");
 
 connectMongo();
@@ -10,29 +10,21 @@ connectMongo();
 
 
 async function seedDB(){
-    const drugs=["Augmentin","Cataflam","Catafast","Flagyl","Aspirin","Bruffen"]
-    const numbers=[];
-    let number;
+    let patient;
 
-for (let i = 0; i < 5; i++) {
-   number=Math.floor(Math.random()*6);
-   if(numbers.includes(number)){
-    i--
-    continue;
-   }
-   numbers.push(number);
-    const drug={
-        tradeName:drugs[number],
-        dosagePerDay:Math.floor(Math.random()*5+1),
-        price:Math.floor(Math.random()*100)+" egp"
+    for (let i = 0; i < 5; i++) {
+        patient={
+            dateOfAdmission:faker.date.betweens(new Date("2021-04-18"),new Date("2022-07-10"),1)[0],
+            patientName:faker.name.findName(),
+            age: Math.floor(Math.random()*60 +10)
+
+        }
+
+        const createdPatient=await Patients.create(patient);
+        await createdPatient.save;
+        
+        
     }
-     const createdDrug= await Drugs.create(drug);
-    await createdDrug.save();
-    console.log(createdDrug);
- 
-    
-}
-    
     
 }
 

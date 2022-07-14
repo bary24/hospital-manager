@@ -19,5 +19,9 @@ async function connectMongo(){
     
 }
 
+// async function closeMongo(){
+//     mongoose.connection.close;
+// }
+
 
 module.exports=connectMongo;
